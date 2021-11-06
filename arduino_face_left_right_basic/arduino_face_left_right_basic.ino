@@ -31,25 +31,25 @@ void setup() {
   
 }
 void loop() {
-   long duration, distance;
-  digitalWrite(TRIG, LOW);
-  delayMicroseconds(2);
-  digitalWrite(TRIG, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(TRIG, LOW);
-   duration = pulseIn (ECHO, HIGH); //물체에 반사되어돌아온 초음파의 시간을 변수에 저장합니다.
-   distance = duration * 17 / 1000; 
+  //  long duration, distance;
+  // digitalWrite(TRIG, LOW);
+  // delayMicroseconds(2);
+  // digitalWrite(TRIG, HIGH);
+  // delayMicroseconds(10);
+  // digitalWrite(TRIG, LOW);
+  //  duration = pulseIn (ECHO, HIGH); //물체에 반사되어돌아온 초음파의 시간을 변수에 저장합니다.
+  //  distance = duration * 17 / 1000; 
 
-    long duration2, distance2;
-  digitalWrite(TRIG2, LOW);
-  delayMicroseconds(2);
-  digitalWrite(TRIG2, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(TRIG2, LOW);
-   duration2 = pulseIn (ECHO2, HIGH); //물체에 반사되어돌아온 초음파의 시간을 변수에 저장합니다.
-   distance2 = duration2 * 17 / 1000; 
+  //   long duration2, distance2;
+  // digitalWrite(TRIG2, LOW);
+  // delayMicroseconds(2);
+  // digitalWrite(TRIG2, HIGH);
+  // delayMicroseconds(10);
+  // digitalWrite(TRIG2, LOW);
+  //  duration2 = pulseIn (ECHO2, HIGH); //물체에 반사되어돌아온 초음파의 시간을 변수에 저장합니다.
+  //  distance2 = duration2 * 17 / 1000; 
   
-  serialData.Get(valsRec);
+  // serialData.Get(valsRec);
   /* if (distance<10)
    {
       x=30;
@@ -64,6 +64,7 @@ void loop() {
       servo2.write(x);
     }*/
     while (valsRec[0] != 0&&valsRec[1] != 0){
+      serialData.Get(valsRec);
     if (valsRec[0]>370){//x축
       x+=1;
     }
@@ -76,15 +77,12 @@ void loop() {
     else if (valsRec[1]<240){
       y-=1;
     }
-    servo.write(y);
-    servo2.write(x);
-    delay(100);
     if (x<0){
     x=0;
-  }
-  if (x>180){
-    x=180;
-  }
+    }
+    if (x>180){
+      x=180;
+    }
   
   if (y<90){
     y=90;
@@ -92,6 +90,9 @@ void loop() {
   if (y>180){
     y=180;
   }
+  servo.write(y);
+    servo2.write(x);
+    delay(100);
    serialData.Get(valsRec);
   }
   

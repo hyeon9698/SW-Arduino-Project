@@ -8,7 +8,7 @@ detector = FaceDetector()
 arduino = SerialObject()
 
 while True:
-    time.sleep(0.1)
+    # time.sleep(0.1)
     success, img = cap.read()
     if success:
         img, bboxs = detector.findFaces(img)
