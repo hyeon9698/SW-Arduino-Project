@@ -1,7 +1,9 @@
 #include <SoftwareSerial.h>
-
+#include <DHT11.h>
+DHT11 dht11(A1);
+int Raindrops_pin= A0;
 SoftwareSerial BTSerial(2, 3);   
-
+int autoflag = 1;
 void setup() {  
   Serial.begin(9600);
   BTSerial.begin(9600);
@@ -9,33 +11,56 @@ void setup() {
 }
 
 void loop() {
+  if(autoflag == 1){
+    int i;
+    float humi, temp;
+    int rain= analogRead(Raindrops_pin);
+    delay(1000);
+    if((i=dht11.read(humi, temp))==0){
+  //    Serial.print("humidity: ");
+  //    Serial.println(humi);
+  //    Serial.print("temperature: ");
+  //    Serial.println(temp);
+      if(humi>60 && rain<200){
+        Serial.println(5);
+      }
+      else if(temp > 25){
+        Serial.println(6);
+      }
+      else if(temp<20){
+        Serial.println(4);
+      }
+    }
+  }
   if (BTSerial.available()){
     char data = BTSerial.read();
-    
+    if(data == '8'){
+      Serial.println(8);
+      autoflag = 1;
+    }
+    if(data == '9'){
+      Serial.println(9);
+      autoflag = 0;
+    }
+    if(autoflag == 0){    
 //    Serial.write(data);
     
     if(data == '0'){
-      digitalWrite(13, LOW);
       Serial.println(0);
     }
     if(data == '1'){
-      digitalWrite(13, HIGH);
       Serial.println(1);
     }
     if(data == '3'){
-      digitalWrite(13, HIGH);
       Serial.println(3);
     }
     if(data == '4'){
-      digitalWrite(13, HIGH);
       Serial.println(4);
     }
     if(data == '5'){
-      digitalWrite(13, HIGH);
       Serial.println(5);
     }
     if(data == '6'){
-      digitalWrite(13, HIGH);
       Serial.println(6);
     }
     if(data == '7'){
@@ -44,6 +69,7 @@ void loop() {
       delay(1000);
       Serial.println(data2);
     }
+  }
   }
     
   if (Serial.available())
