@@ -3,7 +3,7 @@ import time
 from cvzone.FaceDetectionModule import FaceDetector
 from cvzone.SerialModule import SerialObject
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 detector = FaceDetector()
 arduino = SerialObject()
 
