@@ -62,17 +62,17 @@ void loop() {
 //  }
     while (valsRec[0] != 0&&valsRec[1] != 0){
       serialData.Get(valsRec);
-    if (valsRec[0]>370){//x축
-      x-=5;
+    if (valsRec[0]>340){//x축
+      x-=2;
     }
-    if (valsRec[0]<300){
-      x+=5;
+    if (valsRec[0]<240){
+      x+=2;
     }
-    if (valsRec[1]>260){//x축
-      y-=5;
+    if (valsRec[1]>280){//y축
+      y-=1;
     }
     if (valsRec[1]<200){
-      y+=5;
+      y+=1;
     }
     if (x<0){
     x=0;
@@ -80,11 +80,11 @@ void loop() {
     if (x>180){
       x=180;
     }
-//     if (y<90){
-//       y=90;
-//    }
-    if (y>180){
-      y=180;
+     if (y<80){
+       y=80;
+    }
+    if (y>140){
+      y=140;
     }
     servo.write(x);
     servo2.write(y);
