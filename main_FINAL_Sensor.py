@@ -12,6 +12,8 @@ from dotenv import load_dotenv
 import os
 import matplotlib.pyplot as plt
 import pandas as pd
+from telegram.ext import Updater
+from telegram.ext import MessageHandler, Filters
 
 # 'COM3' 부분에 환경에 맞는 포트 입력
 ser = serial.Serial('COM7', 9600)
@@ -27,18 +29,38 @@ font = cv2.FONT_HERSHEY_DUPLEX
 cv2.imshow('window', img0)
 cv2.waitKey()
 onoff = 1
+load_dotenv()
+master_token = os.getenv('TELEGRAM_API_TOKEN_KEY')
+master_mc = os.getenv('TELEGRAM_API_MC')
+master_bot = telegram.Bot(master_token)
+
+now = datetime.now(timezone('Asia/Seoul'))
+msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')} START\n"
+master_bot.sendMessage(master_mc,msg)
+# updater
+updater = Updater(token=master_token, use_context=True)
+dispatcher = updater.dispatcher
+updater.start_polling()
+
 while True:
     if ser.readable():
         val = ser.readline()
         if val.decode()[:len(val)-2] == '8':
             # CAM
             # 객체 생성
-            load_dotenv()
-            master_token = os.getenv('TELEGRAM_API_TOKEN_KEY')
-            master_mc = os.getenv('TELEGRAM_API_MC')
-            master_bot = telegram.Bot(master_token)
 
-
+            stop_signal = 0
+            def handler(update, context):
+                global stop_signal
+                user_text = update.message.text # 사용자가 보낸 메세지를 user_text 변수에 저장합니다.
+                if user_text == "stopcam":
+                    stop_signal = 1
+                    master_bot.send_message(chat_id=master_mc, text="stopping camera") # 답장 보내기
+                if user_text == "help":
+                    master_bot.send_message(chat_id=master_mc, text="stopcam 을 입력하면 카메라 종료\nstopsensor 를 입력하면 sensor 종료 ") # 답장 보내기
+            
+            echo_handler = MessageHandler(Filters.text, handler)
+            dispatcher.add_handler(echo_handler)
             cap = cv2.VideoCapture(1)
             arduino = SerialObject('COM6')
 
@@ -87,13 +109,12 @@ while True:
             img42 = cv2.imread('42.jpg')
 
             cv2.imshow('window', img0)
-            now = datetime.now(timezone('Asia/Seoul'))
-            msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')} START\n"
-            master_bot.sendMessage(master_mc,msg)
             label = 'male'
             TIME = 0 # 0 이면 낮 1이면 밤
             skip_index = 0
             while True:
+                if stop_signal == 1:
+                    break
                 now = datetime.now(timezone('Asia/Seoul'))
                 if 0 < now.hour < 10 and 22 < now.hour < 24:
                     TIME = 1
@@ -355,12 +376,25 @@ while True:
                 master_bot.send_document(master_mc, document=f)
         # Sensor
         if val.decode()[:len(val)-2] == '9':
+            stop_signal = 0
+            def handler(update, context):
+                global stop_signal
+                user_text = update.message.text # 사용자가 보낸 메세지를 user_text 변수에 저장합니다.
+                if user_text == "stopsensor":
+                    stop_signal = 1
+                    master_bot.send_message(chat_id=master_mc, text="stopping sensor") # 답장 보내기
+                if user_text == "help":
+                    master_bot.send_message(chat_id=master_mc, text="stopcam 을 입력하면 카메라 종료\nstopsensor 를 입력하면 sensor 종료 ") # 답장 보내기
+            echo_handler = MessageHandler(Filters.text, handler)
+            dispatcher.add_handler(echo_handler)
             img0 = cv2.imread('0.jpg')
             img1 = cv2.imread('1.jpg')
             img2 = cv2.imread('2.jpg')
             img3 = cv2.imread('3.jpg')
             img4 = cv2.imread('4.jpg')
             while True:
+                if stop_signal == 1:
+                    break
                 if ser.readable():
                     val = ser.readline()
                     if val.decode()[:len(val)-2] == '8':
