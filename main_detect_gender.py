@@ -125,7 +125,9 @@ while True:
     cv2.imshow('result.jpg', im) # 이미지 쓰기
     # print(label)
     if TIME == 0:
-        if len(faces) == 1:
+        if len(faces) == 0:
+            cv2.imshow('window', img0)
+        elif len(faces) == 1:
             if label[:4] == 'male':
                 if min_age_index_final == 0:
                     cv2.imshow('window', img11)
@@ -176,7 +178,9 @@ while True:
 ###############
 
     if TIME == 1:
-        if len(faces) == 1:
+        if len(faces) == 0:
+            cv2.imshow('window', img0)
+        elif len(faces) == 1:
             if label[:4] == 'male':
                 if min_age_index_final == 0:
                     cv2.imshow('window', img27)
