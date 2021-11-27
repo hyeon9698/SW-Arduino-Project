@@ -54,7 +54,7 @@ img41 = cv2.imread('41.jpg')
 img42 = cv2.imread('42.jpg')
 
 cv2.imshow('window', img0)
-with open("INFO.csv", "w", encoding="UTF-8") as f:
+with open("INFO.csv", "a+", encoding="UTF-8") as f:
     now = datetime.now(timezone('Asia/Seoul'))
     msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')} 프로그램 시작"
     f.write(msg)
@@ -129,16 +129,15 @@ while True:
                         0.7, (0, 255, 0), 2) # 박스 위에 남자인지 여자인지 라벨과 확률 쓰기
     cv2.imshow('result.jpg', im) # 이미지 쓰기
     i = i+1
-    # if i%20 != 0:
-    #     continue
-    # print(label)
+    if i%30 != 0:
+        continue
     if TIME == 0:
         if len(faces) == 0:
             cv2.imshow('window', img0)
         elif len(faces) == 1:
             if label[:4] == 'male':
                 if min_age_index_final == 0:
-                    with open("INFO.csv", "w", encoding="UTF-8") as f:
+                    with open("INFO.csv", "a+", encoding="UTF-8") as f:
                         msg = f"{TIME},{len(faces)},{label[:4]},{min_age_index_final}"
                         f.write(msg)
                     cv2.imshow('window', img11)
@@ -194,7 +193,7 @@ while True:
         elif len(faces) == 1:
             if label[:4] == 'male':
                 if min_age_index_final == 0:
-                    with open("INFO.csv", "w", encoding="UTF-8") as f:
+                    with open("INFO.csv", "a+", encoding="UTF-8") as f:
                         msg = f"{TIME},{len(faces)},{label[:4]},{min_age_index_final}"
                         f.write(msg)
                     cv2.imshow('window', img27)
