@@ -76,7 +76,7 @@ while True:
     faces, confidences = cv.detect_face(im)
     both_gender = {'male': 0, 'female': 0}
     face_max_index = 0
-    print('confi',confidences)
+    # print('confi',confidences)
     if confidences:
         face_max_index = np.argmax(confidences)
     if np.size(faces) == 0:
@@ -128,9 +128,9 @@ while True:
             cv2.putText(im, label, (startX, Y),  cv2.FONT_HERSHEY_SIMPLEX,
                         0.7, (0, 255, 0), 2) # 박스 위에 남자인지 여자인지 라벨과 확률 쓰기
     cv2.imshow('result.jpg', im) # 이미지 쓰기
-    i = i+1
-    if i%30 != 0:
-        continue
+    # i = i+1
+    # if i%30 != 0:
+    #     continue
     if TIME == 0:
         if len(faces) == 0:
             cv2.imshow('window', img0)
