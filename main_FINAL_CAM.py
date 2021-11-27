@@ -66,11 +66,9 @@ img41 = cv2.imread('41.jpg')
 img42 = cv2.imread('42.jpg')
 
 cv2.imshow('window', img0)
-with open("INFO.csv", "a+", encoding="UTF-8") as f:
-    now = datetime.now(timezone('Asia/Seoul'))
-    msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')} START\n"
-    master_bot.sendMessage(master_mc,msg)
-    f.write(msg)
+now = datetime.now(timezone('Asia/Seoul'))
+msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')} START\n"
+master_bot.sendMessage(master_mc,msg)
 label = 'male'
 TIME = 0 # 0 이면 낮 1이면 밤
 skip_index = 0

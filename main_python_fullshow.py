@@ -4,7 +4,7 @@ import time
 import cv2
 from PIL import ImageFont, ImageDraw, Image # 한국어를 위한 import
 # 'COM3' 부분에 환경에 맞는 포트 입력
-ser = serial.Serial('COM10', 9600)
+ser = serial.Serial('COM7', 9600)
 img0 = cv2.imread('0.jpg')
 img1 = cv2.imread('1.jpg')
 img2 = cv2.imread('2.jpg')

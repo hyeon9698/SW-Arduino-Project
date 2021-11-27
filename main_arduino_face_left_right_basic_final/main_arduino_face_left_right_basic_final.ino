@@ -10,6 +10,8 @@ Servo servo2;
 /* 오른쪽 112
  왼쪽 600
 */
+int rec=5;
+int playe=4;
 int inputPin=6;
 int val=0;
 int valsRec[2];
@@ -26,8 +28,12 @@ void setup() {
    pinMode(TRIG2, OUTPUT);
   pinMode(ECHO2, INPUT);
   servo.write(x);
+  delay(5000);
   servo2.write(y);
   pinMode(inputPin,INPUT);
+  digitalWrite(rec,HIGH);
+  delay(10000);
+  digitalWrite(rec,LOW);
 }
 void loop() {
   val=digitalRead(inputPin);
@@ -45,21 +51,18 @@ void loop() {
   digitalWrite(TRIG2, HIGH);
   delayMicroseconds(10);
   digitalWrite(TRIG2, LOW);
-  duration = pulseIn (ECHO2, HIGH); 
+  duration2 = pulseIn (ECHO2, HIGH); 
   distance2 = duration2 * 17 / 1000; 
   serialData.Get(valsRec);
-//  if (valsRec[0]==0&&valsRec[1]==0){
-//    if (val==HIGH){
-//      if (distance<10){
-//       z=0;
-//      }
-//      else if (distance2<10){
-//        z=180;
-//        
-//      }
-//      servo.write(z);
-//    }
-//  }
+  if (valsRec[0]==0&&valsRec[1]==0){
+   if (val==HIGH){
+     if (distance<10||distance2<10){
+        digitalWrite(playe,HIGH); 
+        delay(10);
+        digitalWrite(playe,LOW);
+     }
+    }
+  }
     while (valsRec[0] != 0&&valsRec[1] != 0){
       serialData.Get(valsRec);
     if (valsRec[0]>340){//x축
