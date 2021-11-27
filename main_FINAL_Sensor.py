@@ -15,6 +15,14 @@ import pandas as pd
 from telegram.ext import Updater
 from telegram.ext import MessageHandler, Filters
 
+load_dotenv()
+master_token = os.getenv('TELEGRAM_API_TOKEN_KEY')
+master_mc = os.getenv('TELEGRAM_API_MC')
+master_bot = telegram.Bot(master_token)
+
+now = datetime.now(timezone('Asia/Seoul'))
+msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')} 프로그램이 시작되었습니다. 부팅 20초 정도 소요됩니다.\n"
+master_bot.sendMessage(master_mc,msg)
 # 'COM3' 부분에 환경에 맞는 포트 입력
 ser = serial.Serial('COM7', 9600)
 img0 = cv2.imread('0.jpg')
@@ -35,14 +43,7 @@ age_list_final = ['(0, 6)','(8, 20)','(25, 100)']
 cv2.imshow('window', img0)
 cv2.waitKey()
 onoff = 1
-load_dotenv()
-master_token = os.getenv('TELEGRAM_API_TOKEN_KEY')
-master_mc = os.getenv('TELEGRAM_API_MC')
-master_bot = telegram.Bot(master_token)
 
-now = datetime.now(timezone('Asia/Seoul'))
-msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')} 프로그램이 시작되었습니다. 부팅 20초 정도 소요됩니다.\n"
-master_bot.sendMessage(master_mc,msg)
 # updater
 updater = Updater(token=master_token, use_context=True)
 dispatcher = updater.dispatcher
