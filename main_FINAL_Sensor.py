@@ -376,8 +376,26 @@ while True:
                     female += 1
                 else:
                     both += 1
+            plt.figure(1)
             plt.bar(['male', 'female', 'both'], [male, female, both])
             plt.savefig('data.png')
+            baby = 0
+            teen = 0
+            old = 0
+            for d in data['age']:
+                if d==0:
+                    baby+=1
+                elif d==1:
+                    teen+=1
+                else:
+                    old+=1
+            plt.figure(2)
+            plt.bar(['0, 6','8, 20','25, 100'], [baby, teen, old])
+            plt.savefig('data2.png')
+            with open('data.png', 'rb') as f:
+                master_bot.send_document(master_mc, document=f)
+            with open('data2.png', 'rb') as f:
+                master_bot.send_document(master_mc, document=f)
             with open('data.png', 'rb') as f:
                 master_bot.send_document(master_mc, document=f)
         # Sensor
