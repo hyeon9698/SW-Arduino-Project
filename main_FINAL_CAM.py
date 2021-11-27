@@ -65,7 +65,7 @@ img42 = cv2.imread('42.jpg')
 cv2.imshow('window', img0)
 with open("INFO.csv", "a+", encoding="UTF-8") as f:
     now = datetime.now(timezone('Asia/Seoul'))
-    msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')} 프로그램 시작\n"
+    msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')} START\n"
     master_bot.sendMessage(master_mc,msg)
     f.write(msg)
 label = 'male'
@@ -306,5 +306,6 @@ cap.release()
 cv2.destroyAllWindows()
 
 msg = f"프로그램이 종료되었습니다."
-master_bot.send_document(master_mc, document='INFO.csv')
+with open('INFO.csv', 'rb') as f:
+    master_bot.send_document(master_mc, document=f)
 master_bot.sendMessage(master_mc,msg)
