@@ -133,116 +133,115 @@ while True:
                         0.7, (0, 255, 0), 2) # 박스 위에 남자인지 여자인지 라벨과 확률 쓰기
     cv2.imshow('result.jpg', im) # 이미지 쓰기
     skip_index = skip_index+1
-    if skip_index%30 != 0:
-        continue
-    if TIME == 0:
-        if len(faces) == 0:
-            cv2.imshow('window', img0)
-        elif len(faces) == 1:
-            if label[:4] == 'male':
-                if min_age_index_final == 0:
-                    with open("INFO.csv", "a+", encoding="UTF-8") as f:
-                        msg = f"{TIME},{len(faces)},{label[:4]},{min_age_index_final}\n"
-                        f.write(msg)
-                    cv2.imshow('window', img11)
-                elif min_age_index_final == 1:
-                    cv2.imshow('window', img12)
+    if skip_index%30 == 0:
+        if TIME == 0:
+            if len(faces) == 0:
+                cv2.imshow('window', img0)
+            elif len(faces) == 1:
+                if label[:4] == 'male':
+                    if min_age_index_final == 0:
+                        with open("INFO.csv", "a+", encoding="UTF-8") as f:
+                            msg = f"{TIME},{len(faces)},{label[:4]},{min_age_index_final}\n"
+                            f.write(msg)
+                        cv2.imshow('window', img11)
+                    elif min_age_index_final == 1:
+                        cv2.imshow('window', img12)
+                    else:
+                        cv2.imshow('window', img13)
+                # 여자일 때
                 else:
-                    cv2.imshow('window', img13)
-            # 여자일 때
+                    if min_age_index_final == 0:
+                        cv2.imshow('window', img14)
+                    elif min_age_index_final == 1:
+                        cv2.imshow('window', img15)
+                    else:
+                        cv2.imshow('window', img16)
+            # 두 명일 때
+            elif len(faces) == 2:
+                print('두명입니다')
+                # 남 일때
+                if both_gender['male'] == 1 and both_gender['female'] == 0:
+                    if min_age_index_final == 0:
+                        cv2.imshow('window', img17)
+                    elif min_age_index_final == 1:
+                        cv2.imshow('window', img18)
+                    else:
+                        cv2.imshow('window', img19)
+                # 둘다 여
+                elif both_gender['male'] == 0 and both_gender['female'] == 1:
+                    if min_age_index_final == 0:
+                        cv2.imshow('window', img20)
+                    elif min_age_index_final == 1:
+                        cv2.imshow('window', img21)
+                    else:
+                        cv2.imshow('window', img22)
+                # 둘다 남자이거나 여자일 때
+                else:
+                    if min_age_index_final == 0:
+                        cv2.imshow('window', img23)
+                    elif min_age_index_final == 1:
+                        cv2.imshow('window', img24)
+                    else:
+                        cv2.imshow('window', img25)
+            # 세 명일 때
             else:
-                if min_age_index_final == 0:
-                    cv2.imshow('window', img14)
-                elif min_age_index_final == 1:
-                    cv2.imshow('window', img15)
-                else:
-                    cv2.imshow('window', img16)
-        # 두 명일 때
-        elif len(faces) == 2:
-            print('두명입니다')
-            # 남 일때
-            if both_gender['male'] == 1 and both_gender['female'] == 0:
-                if min_age_index_final == 0:
-                    cv2.imshow('window', img17)
-                elif min_age_index_final == 1:
-                    cv2.imshow('window', img18)
-                else:
-                    cv2.imshow('window', img19)
-            # 둘다 여
-            elif both_gender['male'] == 0 and both_gender['female'] == 1:
-                if min_age_index_final == 0:
-                    cv2.imshow('window', img20)
-                elif min_age_index_final == 1:
-                    cv2.imshow('window', img21)
-                else:
-                    cv2.imshow('window', img22)
-            # 둘다 남자이거나 여자일 때
-            else:
-                if min_age_index_final == 0:
-                    cv2.imshow('window', img23)
-                elif min_age_index_final == 1:
-                    cv2.imshow('window', img24)
-                else:
-                    cv2.imshow('window', img25)
-        # 세 명일 때
-        else:
-            cv2.imshow('window', img26)
+                cv2.imshow('window', img26)
 
 
-###############
+    ###############
 
-    if TIME == 1:
-        if len(faces) == 0:
-            cv2.imshow('window', img0)
-        elif len(faces) == 1:
-            if label[:4] == 'male':
-                if min_age_index_final == 0:
-                    with open("INFO.csv", "a+", encoding="UTF-8") as f:
-                        msg = f"{TIME},{len(faces)},{label[:4]},{min_age_index_final}\n"
-                        f.write(msg)
-                    cv2.imshow('window', img27)
-                elif min_age_index_final == 1:
-                    cv2.imshow('window', img28)
+        if TIME == 1:
+            if len(faces) == 0:
+                cv2.imshow('window', img0)
+            elif len(faces) == 1:
+                if label[:4] == 'male':
+                    if min_age_index_final == 0:
+                        with open("INFO.csv", "a+", encoding="UTF-8") as f:
+                            msg = f"{TIME},{len(faces)},{label[:4]},{min_age_index_final}\n"
+                            f.write(msg)
+                        cv2.imshow('window', img27)
+                    elif min_age_index_final == 1:
+                        cv2.imshow('window', img28)
+                    else:
+                        cv2.imshow('window', img29)
+                # 여자일 때
                 else:
-                    cv2.imshow('window', img29)
-            # 여자일 때
+                    if min_age_index_final == 0:
+                        cv2.imshow('window', img30)
+                    elif min_age_index_final == 1:
+                        cv2.imshow('window', img31)
+                    else:
+                        cv2.imshow('window', img32)
+            # 두 명일 때
+            elif len(faces) == 2:
+                print('두명입니다')
+                # 남 일때
+                if both_gender['male'] == 1 and both_gender['female'] == 0:
+                    if min_age_index_final == 0:
+                        cv2.imshow('window', img33)
+                    elif min_age_index_final == 1:
+                        cv2.imshow('window', img34)
+                    else:
+                        cv2.imshow('window', img35)
+                # 둘다 여
+                elif both_gender['male'] == 0 and both_gender['female'] == 1:
+                    if min_age_index_final == 0:
+                        cv2.imshow('window', img36)
+                    elif min_age_index_final == 1:
+                        cv2.imshow('window', img37)
+                    else:
+                        cv2.imshow('window', img38)
+                # 둘다 남자이거나 여자일 때
+                else:
+                    if min_age_index_final == 0:
+                        cv2.imshow('window', img39)
+                    elif min_age_index_final == 1:
+                        cv2.imshow('window', img40)
+                    else:
+                        cv2.imshow('window', img41)
+            # 세 명일 때
             else:
-                if min_age_index_final == 0:
-                    cv2.imshow('window', img30)
-                elif min_age_index_final == 1:
-                    cv2.imshow('window', img31)
-                else:
-                    cv2.imshow('window', img32)
-        # 두 명일 때
-        elif len(faces) == 2:
-            print('두명입니다')
-            # 남 일때
-            if both_gender['male'] == 1 and both_gender['female'] == 0:
-                if min_age_index_final == 0:
-                    cv2.imshow('window', img33)
-                elif min_age_index_final == 1:
-                    cv2.imshow('window', img34)
-                else:
-                    cv2.imshow('window', img35)
-            # 둘다 여
-            elif both_gender['male'] == 0 and both_gender['female'] == 1:
-                if min_age_index_final == 0:
-                    cv2.imshow('window', img36)
-                elif min_age_index_final == 1:
-                    cv2.imshow('window', img37)
-                else:
-                    cv2.imshow('window', img38)
-            # 둘다 남자이거나 여자일 때
-            else:
-                if min_age_index_final == 0:
-                    cv2.imshow('window', img39)
-                elif min_age_index_final == 1:
-                    cv2.imshow('window', img40)
-                else:
-                    cv2.imshow('window', img41)
-        # 세 명일 때
-        else:
-            cv2.imshow('window', img42)
+                cv2.imshow('window', img42)
 
 
 ##########
