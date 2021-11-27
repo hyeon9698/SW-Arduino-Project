@@ -25,7 +25,13 @@ img4 = cv2.imread('4.jpg')
 cv2.namedWindow("window", cv2.WND_PROP_FULLSCREEN)
 cv2.setWindowProperty("window",cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
 font = cv2.FONT_HERSHEY_DUPLEX
+cap = cv2.VideoCapture(1)
+arduino = SerialObject('COM6')
 
+age_net = cv2.dnn.readNetFromCaffe(
+    'models/deploy_age.prototxt', 
+    'models/age_net.caffemodel')
+age_list_final = ['(0, 6)','(8, 20)','(25, 100)']
 cv2.imshow('window', img0)
 cv2.waitKey()
 onoff = 1
@@ -35,7 +41,7 @@ master_mc = os.getenv('TELEGRAM_API_MC')
 master_bot = telegram.Bot(master_token)
 
 now = datetime.now(timezone('Asia/Seoul'))
-msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')} START\n"
+msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')} 프로그램이 시작되었습니다. 부팅 20초 정도 소요됩니다.\n"
 master_bot.sendMessage(master_mc,msg)
 # updater
 updater = Updater(token=master_token, use_context=True)
@@ -48,7 +54,8 @@ while True:
         if val.decode()[:len(val)-2] == '8':
             # CAM
             # 객체 생성
-
+            msg = f"카메라가 실행됩니다."
+            master_bot.sendMessage(master_mc,msg)
             stop_signal = 0
             def handler(update, context):
                 global stop_signal
@@ -61,13 +68,13 @@ while True:
             
             echo_handler = MessageHandler(Filters.text, handler)
             dispatcher.add_handler(echo_handler)
-            cap = cv2.VideoCapture(1)
-            arduino = SerialObject('COM6')
+            # cap = cv2.VideoCapture(1)
+            # arduino = SerialObject('COM6')
 
-            age_net = cv2.dnn.readNetFromCaffe(
-                'models/deploy_age.prototxt', 
-                'models/age_net.caffemodel')
-            age_list_final = ['(0, 6)','(8, 20)','(25, 100)']
+            # age_net = cv2.dnn.readNetFromCaffe(
+            #     'models/deploy_age.prototxt', 
+            #     'models/age_net.caffemodel')
+            # age_list_final = ['(0, 6)','(8, 20)','(25, 100)']
             cv2.namedWindow("window", cv2.WND_PROP_FULLSCREEN)
             cv2.setWindowProperty("window",cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
             img0 = cv2.imread('0.jpg')
@@ -166,7 +173,7 @@ while True:
                         min_age_index_final = age_index_final
                     age = age_list_final[min_age_index_final]
                     overlay_text = '%s' % (age)
-                    cv2.putText(im, overlay_text, org=(startX + 100, startY), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
+                    cv2.putText(im, overlay_text, org=(startX + 100, endY), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
                     fontScale=1, color=(255,0,0), thickness=5)
                     # draw rectangle over face
                     cv2.rectangle(im, (startX,startY), (endX,endY), (0,255,0), 2) # 검출된 얼굴 위에 박스 그리기
@@ -352,7 +359,7 @@ while True:
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
             cap.release()
-
+            cv2.destroyAllWindows()
             msg = f"프로그램이 종료되었습니다."
             with open('INFO.csv', 'rb') as f:
                 master_bot.send_document(master_mc, document=f)
@@ -375,6 +382,8 @@ while True:
                 master_bot.send_document(master_mc, document=f)
         # Sensor
         if val.decode()[:len(val)-2] == '9':
+            msg = f"센서가 실행됩니다"
+            master_bot.sendMessage(master_mc,msg)
             stop_signal = 0
             def handler(update, context):
                 global stop_signal
@@ -386,6 +395,8 @@ while True:
                     master_bot.send_message(chat_id=master_mc, text="stopcam 을 입력하면 카메라 종료\nstopsensor 를 입력하면 sensor 종료 ") # 답장 보내기
             echo_handler = MessageHandler(Filters.text, handler)
             dispatcher.add_handler(echo_handler)
+            cv2.namedWindow("window", cv2.WND_PROP_FULLSCREEN)
+            cv2.setWindowProperty("window",cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
             img0 = cv2.imread('0.jpg')
             img1 = cv2.imread('1.jpg')
             img2 = cv2.imread('2.jpg')
@@ -434,3 +445,4 @@ while True:
                     if cv2.waitKey(1) & 0xFF == ord('q'):
                         break
                     # print(val.decode()[:len(val)-2])  # 넘어온 데이터 중 마지막 개행문자 제외
+            cv2.destroyAllWindows()
