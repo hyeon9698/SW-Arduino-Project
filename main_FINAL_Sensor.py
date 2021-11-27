@@ -33,7 +33,6 @@ img4 = cv2.imread('4.jpg')
 cv2.namedWindow("window", cv2.WND_PROP_FULLSCREEN)
 cv2.setWindowProperty("window",cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
 font = cv2.FONT_HERSHEY_DUPLEX
-cap = cv2.VideoCapture(1)
 arduino = SerialObject('COM6')
 
 age_net = cv2.dnn.readNetFromCaffe(
@@ -57,6 +56,7 @@ while True:
             # 객체 생성
             msg = f"카메라가 실행됩니다."
             master_bot.sendMessage(master_mc,msg)
+            cap = cv2.VideoCapture(1)
             stop_signal = 0
             def handler(update, context):
                 global stop_signal
@@ -175,7 +175,7 @@ while True:
                     age = age_list_final[min_age_index_final]
                     overlay_text = '%s' % (age)
                     cv2.putText(im, overlay_text, org=(startX + 100, endY), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
-                    fontScale=1, color=(255,0,0), thickness=5)
+                    fontScale=1, color=(255,0,0), thickness=2)
                     # draw rectangle over face
                     cv2.rectangle(im, (startX,startY), (endX,endY), (0,255,0), 2) # 검출된 얼굴 위에 박스 그리기
                     face_crop = np.copy(im[startY:endY, startX:endX])        
