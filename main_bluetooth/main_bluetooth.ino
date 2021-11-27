@@ -3,7 +3,7 @@
 DHT11 dht11(A1);
 int Raindrops_pin= A0;
 SoftwareSerial BTSerial(2, 3);   
-int autoflag = 1;
+int autoflag = 0;
 void setup() {  
   Serial.begin(9600);
   BTSerial.begin(9600);
@@ -34,17 +34,24 @@ void loop() {
   }
   if (BTSerial.available()){
     char data = BTSerial.read();
+    if(autoflag == 1){
+      if(data=='b'){
+        Serial.println(13);
+        autoflag = 0;
+      }
+    }
+    if(data == '8'){
+      Serial.println(8);
+    }
+    if(data == '9'){
+      Serial.println(9);
+    }
+    if(autoflag == 0){ 
+//    Serial.write(data);
     if(data == 'a'){
-      Serial.println('a');
+      Serial.println(14);
       autoflag = 1;
     }
-    if(data == 'b'){
-      Serial.println('b');
-      autoflag = 0;
-    }
-    if(autoflag == 0){    
-//    Serial.write(data);
-    
     if(data == '0'){
       Serial.println(0);
     }

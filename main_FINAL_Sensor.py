@@ -30,6 +30,7 @@ img1 = cv2.imread('1.jpg')
 img2 = cv2.imread('2.jpg')
 img3 = cv2.imread('3.jpg')
 img4 = cv2.imread('4.jpg')
+black = cv2.imread('black.jpg')
 cv2.namedWindow("window", cv2.WND_PROP_FULLSCREEN)
 cv2.setWindowProperty("window",cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
 font = cv2.FONT_HERSHEY_DUPLEX
@@ -51,6 +52,7 @@ updater.start_polling()
 while True:
     if ser.readable():
         val = ser.readline()
+        print(val.decode()[:len(val)-2])
         if val.decode()[:len(val)-2] == '8':
             # CAM
             # 객체 생성
@@ -61,7 +63,7 @@ while True:
             def handler(update, context):
                 global stop_signal
                 user_text = update.message.text # 사용자가 보낸 메세지를 user_text 변수에 저장합니다.
-                if user_text == "stopcam":
+                if user_text == "stop":
                     stop_signal = 1
                     master_bot.send_message(chat_id=master_mc, text="stopping camera") # 답장 보내기
                 if user_text == "help":
@@ -397,8 +399,6 @@ while True:
                 master_bot.send_document(master_mc, document=f)
             with open('data2.png', 'rb') as f:
                 master_bot.send_document(master_mc, document=f)
-            with open('data.png', 'rb') as f:
-                master_bot.send_document(master_mc, document=f)
         # Sensor
         if val.decode()[:len(val)-2] == '9':
             msg = f"센서가 실행됩니다"
@@ -407,7 +407,7 @@ while True:
             def handler(update, context):
                 global stop_signal
                 user_text = update.message.text # 사용자가 보낸 메세지를 user_text 변수에 저장합니다.
-                if user_text == "stopsensor":
+                if user_text == "stop":
                     stop_signal = 1
                     master_bot.send_message(chat_id=master_mc, text="stopping sensor") # 답장 보내기
                 if user_text == "help":
@@ -426,13 +426,14 @@ while True:
                     break
                 if ser.readable():
                     val = ser.readline()
+                    print(val.decode()[:len(val)-2])
                     if val.decode()[:len(val)-2] == '9':
                         break
                     if val.decode()[:len(val)-2] == '1':
                         onoff = 1
                     if val.decode()[:len(val)-2] == '0':
                         onoff = 0
-                        cv2.imshow('window', 'black.jpg')
+                        cv2.imshow('window', black)
                     # print(val.decode()[:len(val)-2])
                     if onoff:
                         if val.decode()[:len(val)-2] == '3':
