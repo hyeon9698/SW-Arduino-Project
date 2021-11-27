@@ -149,6 +149,7 @@ while True:
                 cv2.imshow('window', img0)
             elif len(faces) == 1:
                 if label[:4] == 'male':
+                    label = 0
                     if min_age_index_final == 0:
                         with open("INFO.csv", "a+", encoding="UTF-8") as f:
                             msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
@@ -166,6 +167,7 @@ while True:
                             f.write(msg)
                 # 여자일 때
                 else:
+                    label = 1
                     if min_age_index_final == 0:
                         with open("INFO.csv", "a+", encoding="UTF-8") as f:
                             msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
@@ -185,6 +187,7 @@ while True:
             elif len(faces) == 2:
                 # 남 일때
                 if both_gender['male'] == 1 and both_gender['female'] == 0:
+                    label = 0
                     if min_age_index_final == 0:
                         with open("INFO.csv", "a+", encoding="UTF-8") as f:
                             msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
@@ -202,6 +205,7 @@ while True:
                         cv2.imshow('window', img19)
                 # 둘다 여
                 elif both_gender['male'] == 0 and both_gender['female'] == 1:
+                    label = 1
                     if min_age_index_final == 0:
                         with open("INFO.csv", "a+", encoding="UTF-8") as f:
                             msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
@@ -219,6 +223,7 @@ while True:
                         cv2.imshow('window', img22)
                 # 둘다 남자이거나 여자일 때
                 else:
+                    label = 2
                     if min_age_index_final == 0:
                         with open("INFO.csv", "a+", encoding="UTF-8") as f:
                             msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
@@ -236,6 +241,7 @@ while True:
                         cv2.imshow('window', img25)
             # 세 명일 때
             else:
+                label = 2
                 with open("INFO.csv", "a+", encoding="UTF-8") as f:
                             msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
                             f.write(msg)
