@@ -40,7 +40,7 @@ while True:
 
 
             cap = cv2.VideoCapture(1)
-            arduino = SerialObject()
+            arduino = SerialObject('COM6')
 
             age_net = cv2.dnn.readNetFromCaffe(
                 'models/deploy_age.prototxt', 
