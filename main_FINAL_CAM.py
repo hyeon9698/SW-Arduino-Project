@@ -89,6 +89,10 @@ while True:
         (centerX, centerY) = (startX+endX)/2 , (startY+endY)/2
         if i == face_max_index:
             print(centerX,centerY)
+            if centerX < 100:
+                centerX = 100
+            if centerY < 100:
+                centerY = 100
             arduino.sendData([centerX, centerY])
         face_img = im[startY:endY, startX:startY].copy()
         age_index_final = 2
