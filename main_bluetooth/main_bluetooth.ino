@@ -35,11 +35,11 @@ void loop() {
   if (BTSerial.available()){
     char data = BTSerial.read();
     if(data == 'a'){
-      Serial.println(a);
+      Serial.println('a');
       autoflag = 1;
     }
     if(data == 'b'){
-      Serial.println(b);
+      Serial.println('b');
       autoflag = 0;
     }
     if(autoflag == 0){    
