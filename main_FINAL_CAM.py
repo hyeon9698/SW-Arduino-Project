@@ -6,8 +6,13 @@ from cvzone.SerialModule import SerialObject
 from datetime import datetime, timedelta
 from pytz import timezone
 import telegram
-
-
+from dotenv import load_dotenv
+import os
+# 객체 생성
+load_dotenv()
+master_token = os.getenv('TELEGRAM_API_TOKEN_KEY')
+master_mc = os.getenv('TELEGRAM_API_MC')
+master_bot = telegram.Bot(master_token)
 
 
 cap = cv2.VideoCapture(1)
