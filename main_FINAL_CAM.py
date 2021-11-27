@@ -5,6 +5,10 @@ import numpy as np
 from cvzone.SerialModule import SerialObject
 from datetime import datetime, timedelta
 from pytz import timezone
+import telegram
+
+
+
 
 cap = cv2.VideoCapture(1)
 arduino = SerialObject()
@@ -57,10 +61,11 @@ cv2.imshow('window', img0)
 with open("INFO.csv", "a+", encoding="UTF-8") as f:
     now = datetime.now(timezone('Asia/Seoul'))
     msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')} 프로그램 시작\n"
+    master_bot.sendMessage(master_mc,msg)
     f.write(msg)
 label = 'male'
 TIME = 0 # 0 이면 낮 1이면 밤
-i = 0
+skip_index = 0
 while True:
     now = datetime.now(timezone('Asia/Seoul'))
     if 0 < now.hour < 10 and 22 < now.hour < 24:
@@ -132,8 +137,8 @@ while True:
             cv2.putText(im, label, (startX, Y),  cv2.FONT_HERSHEY_SIMPLEX,
                         0.7, (0, 255, 0), 2) # 박스 위에 남자인지 여자인지 라벨과 확률 쓰기
     cv2.imshow('result.jpg', im) # 이미지 쓰기
-    i = i+1
-    if i%30 == 0:
+    skip_index = skip_index+1
+    if skip_index%30 == 0:
         if TIME == 0:
             if len(faces) == 0:
                 cv2.imshow('window', img0)
@@ -141,50 +146,94 @@ while True:
                 if label[:4] == 'male':
                     if min_age_index_final == 0:
                         with open("INFO.csv", "a+", encoding="UTF-8") as f:
-                            msg = f"{TIME},{len(faces)},{label[:4]},{min_age_index_final}\n"
+                            msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
                             f.write(msg)
                         cv2.imshow('window', img11)
                     elif min_age_index_final == 1:
                         cv2.imshow('window', img12)
+                        with open("INFO.csv", "a+", encoding="UTF-8") as f:
+                            msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
+                            f.write(msg)
                     else:
                         cv2.imshow('window', img13)
+                        with open("INFO.csv", "a+", encoding="UTF-8") as f:
+                            msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
+                            f.write(msg)
                 # 여자일 때
                 else:
                     if min_age_index_final == 0:
+                        with open("INFO.csv", "a+", encoding="UTF-8") as f:
+                            msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
+                            f.write(msg)
                         cv2.imshow('window', img14)
                     elif min_age_index_final == 1:
+                        with open("INFO.csv", "a+", encoding="UTF-8") as f:
+                            msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
+                            f.write(msg)
                         cv2.imshow('window', img15)
                     else:
+                        with open("INFO.csv", "a+", encoding="UTF-8") as f:
+                            msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
+                            f.write(msg)
                         cv2.imshow('window', img16)
             # 두 명일 때
             elif len(faces) == 2:
-                print('두명입니다')
                 # 남 일때
                 if both_gender['male'] == 1 and both_gender['female'] == 0:
                     if min_age_index_final == 0:
+                        with open("INFO.csv", "a+", encoding="UTF-8") as f:
+                            msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
+                            f.write(msg)
                         cv2.imshow('window', img17)
                     elif min_age_index_final == 1:
+                        with open("INFO.csv", "a+", encoding="UTF-8") as f:
+                            msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
+                            f.write(msg)
                         cv2.imshow('window', img18)
                     else:
+                        with open("INFO.csv", "a+", encoding="UTF-8") as f:
+                            msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
+                            f.write(msg)
                         cv2.imshow('window', img19)
                 # 둘다 여
                 elif both_gender['male'] == 0 and both_gender['female'] == 1:
                     if min_age_index_final == 0:
+                        with open("INFO.csv", "a+", encoding="UTF-8") as f:
+                            msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
+                            f.write(msg)
                         cv2.imshow('window', img20)
                     elif min_age_index_final == 1:
+                        with open("INFO.csv", "a+", encoding="UTF-8") as f:
+                            msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
+                            f.write(msg)
                         cv2.imshow('window', img21)
                     else:
+                        with open("INFO.csv", "a+", encoding="UTF-8") as f:
+                            msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
+                            f.write(msg)
                         cv2.imshow('window', img22)
                 # 둘다 남자이거나 여자일 때
                 else:
                     if min_age_index_final == 0:
+                        with open("INFO.csv", "a+", encoding="UTF-8") as f:
+                            msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
+                            f.write(msg)
                         cv2.imshow('window', img23)
                     elif min_age_index_final == 1:
+                        with open("INFO.csv", "a+", encoding="UTF-8") as f:
+                            msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
+                            f.write(msg)
                         cv2.imshow('window', img24)
                     else:
+                        with open("INFO.csv", "a+", encoding="UTF-8") as f:
+                            msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
+                            f.write(msg)
                         cv2.imshow('window', img25)
             # 세 명일 때
             else:
+                with open("INFO.csv", "a+", encoding="UTF-8") as f:
+                            msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')},{TIME},{len(faces)},{label},{min_age_index_final}\n"
+                            f.write(msg)
                 cv2.imshow('window', img26)
 
 
@@ -250,3 +299,7 @@ while True:
         break
 cap.release()
 cv2.destroyAllWindows()
+
+msg = f"프로그램이 종료되었습니다."
+master_bot.send_document(master_mc, document='INFO.csv')
+master_bot.sendMessage(master_mc,msg)
