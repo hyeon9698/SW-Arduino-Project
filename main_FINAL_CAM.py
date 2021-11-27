@@ -125,8 +125,8 @@ while True:
                         0.7, (0, 255, 0), 2) # 박스 위에 남자인지 여자인지 라벨과 확률 쓰기
     cv2.imshow('result.jpg', im) # 이미지 쓰기
     i = i+1
-    if i%20 != 0:
-        continue
+    # if i%20 != 0:
+    #     continue
     # print(label)
     if TIME == 0:
         if len(faces) == 0:
@@ -134,6 +134,9 @@ while True:
         elif len(faces) == 1:
             if label[:4] == 'male':
                 if min_age_index_final == 0:
+                    with open("INFO.csv", "w", encoding="UTF-8") as f:
+                        msg = f"{TIME},{len(faces)},{label[:4]},{min_age_index_final}"
+                        f.write(msg)
                     cv2.imshow('window', img11)
                 elif min_age_index_final == 1:
                     cv2.imshow('window', img12)
@@ -187,6 +190,9 @@ while True:
         elif len(faces) == 1:
             if label[:4] == 'male':
                 if min_age_index_final == 0:
+                    with open("INFO.csv", "w", encoding="UTF-8") as f:
+                        msg = f"{TIME},{len(faces)},{label[:4]},{min_age_index_final}"
+                        f.write(msg)
                     cv2.imshow('window', img27)
                 elif min_age_index_final == 1:
                     cv2.imshow('window', img28)
