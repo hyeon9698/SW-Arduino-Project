@@ -56,7 +56,7 @@ img42 = cv2.imread('42.jpg')
 cv2.imshow('window', img0)
 with open("INFO.csv", "a+", encoding="UTF-8") as f:
     now = datetime.now(timezone('Asia/Seoul'))
-    msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')} 프로그램 시작"
+    msg = f"{now.strftime('%Y-%m-%d %H:%M:%S')} 프로그램 시작\n"
     f.write(msg)
 label = 'male'
 TIME = 0 # 0 이면 낮 1이면 밤
