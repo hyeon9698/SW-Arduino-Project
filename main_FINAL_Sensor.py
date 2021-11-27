@@ -425,12 +425,13 @@ while True:
                     break
                 if ser.readable():
                     val = ser.readline()
-                    if val.decode()[:len(val)-2] == '8':
+                    if val.decode()[:len(val)-2] == '9':
                         break
                     if val.decode()[:len(val)-2] == '1':
                         onoff = 1
                     if val.decode()[:len(val)-2] == '0':
                         onoff = 0
+                        cv2.imshow('window', 'black.jpg')
                     # print(val.decode()[:len(val)-2])
                     if onoff:
                         if val.decode()[:len(val)-2] == '3':

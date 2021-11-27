@@ -34,12 +34,12 @@ void loop() {
   }
   if (BTSerial.available()){
     char data = BTSerial.read();
-    if(data == '8'){
-      Serial.println(8);
+    if(data == 'a'){
+      Serial.println(a);
       autoflag = 1;
     }
-    if(data == '9'){
-      Serial.println(9);
+    if(data == 'b'){
+      Serial.println(b);
       autoflag = 0;
     }
     if(autoflag == 0){    
