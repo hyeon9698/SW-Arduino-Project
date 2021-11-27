@@ -56,6 +56,7 @@ img42 = cv2.imread('42.jpg')
 cv2.imshow('window', img0)
 label = 'male'
 TIME = 0 # 0 이면 낮 1이면 밤
+i = 0
 while True:
     now = datetime.now(timezone('Asia/Seoul'))
     if 0 < now.hour < 10 and 22 < now.hour < 24:
@@ -123,6 +124,9 @@ while True:
             cv2.putText(im, label, (startX, Y),  cv2.FONT_HERSHEY_SIMPLEX,
                         0.7, (0, 255, 0), 2) # 박스 위에 남자인지 여자인지 라벨과 확률 쓰기
     cv2.imshow('result.jpg', im) # 이미지 쓰기
+    i = i+1
+    if i%20 != 0:
+        continue
     # print(label)
     if TIME == 0:
         if len(faces) == 0:
