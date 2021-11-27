@@ -8,6 +8,9 @@ from pytz import timezone
 import telegram
 from dotenv import load_dotenv
 import os
+import matplotlib.pyplot as plt
+import pandas as pd
+
 # 객체 생성
 load_dotenv()
 master_token = os.getenv('TELEGRAM_API_TOKEN_KEY')
@@ -315,3 +318,19 @@ msg = f"프로그램이 종료되었습니다."
 with open('INFO.csv', 'rb') as f:
     master_bot.send_document(master_mc, document=f)
 master_bot.sendMessage(master_mc,msg)
+
+data = pd.read_csv('INFO.csv')
+male = 0
+female = 0
+both = 0
+for d in data['sex']:
+    if d==0:
+        male += 1
+    elif d==1:
+        female += 1
+    else:
+        both += 1
+plt.bar(['male', 'female', 'both'], [male, female, both])
+plt.savefig('data.png')
+with open('data.png', 'rb') as f:
+    master_bot.send_document(master_mc, document=f)
