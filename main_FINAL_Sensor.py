@@ -352,7 +352,6 @@ while True:
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
             cap.release()
-            cv2.destroyAllWindows()
 
             msg = f"프로그램이 종료되었습니다."
             with open('INFO.csv', 'rb') as f:
@@ -435,4 +434,3 @@ while True:
                     if cv2.waitKey(1) & 0xFF == ord('q'):
                         break
                     # print(val.decode()[:len(val)-2])  # 넘어온 데이터 중 마지막 개행문자 제외
-            cv2.destroyAllWindows()
