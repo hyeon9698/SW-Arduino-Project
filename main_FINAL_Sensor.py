@@ -47,7 +47,8 @@ ondisplay = 1
 updater = Updater(token=master_token, use_context=True)
 dispatcher = updater.dispatcher
 updater.start_polling()
-x = input('준비가 완료 되었습니다. 엔터를 눌러주세요')
+cap = cv2.VideoCapture(1)
+print('준비가 완료 되었습니다. 스페이스를 눌러주세요')
 cv2.waitKey()
 while True:
     if ser.readable():
@@ -58,7 +59,6 @@ while True:
             # 객체 생성
             msg = f"카메라가 실행됩니다."
             master_bot.sendMessage(master_mc,msg)
-            cap = cv2.VideoCapture(1)
             stop_signal = 0
             def handler(update, context):
                 global stop_signal
@@ -371,7 +371,7 @@ while True:
 
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
-            cap.release()
+            # cap.release()
             cv2.destroyAllWindows()
             msg = f"프로그램이 종료되었습니다."
             with open('INFO.csv', 'rb') as f:
