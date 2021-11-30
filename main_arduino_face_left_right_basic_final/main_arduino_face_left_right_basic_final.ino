@@ -28,12 +28,12 @@ void setup() {
    pinMode(TRIG2, OUTPUT);
   pinMode(ECHO2, INPUT);
   servo.write(x);
-  delay(5000);
+  delay(1000);
   servo2.write(y);
   pinMode(inputPin,INPUT);
-  digitalWrite(rec,HIGH);
-  delay(10000);
-  digitalWrite(rec,LOW);
+//  digitalWrite(rec,HIGH);
+//  delay(10000);
+//  digitalWrite(rec,LOW);
 }
 void loop() {
   val=digitalRead(inputPin);
@@ -56,7 +56,7 @@ void loop() {
   serialData.Get(valsRec);
   if (valsRec[0]==0&&valsRec[1]==0){
    if (val==HIGH){
-     if (distance<10||distance2<10){
+     if (distance<20||distance2<20){
         digitalWrite(playe,HIGH); 
         delay(10);
         digitalWrite(playe,LOW);
