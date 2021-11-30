@@ -201,6 +201,7 @@ while True:
                     no_face_count += 1
                     if no_face_count > 60:
                         ondisplay = 0
+                        cv2.imshow('window', black)
                 else:
                     ondisplay = 1
                     no_face_count = 0
