@@ -44,7 +44,7 @@ cv2.imshow('window', img0)
 x = input('준비가 완료 되었습니다. 스페이스바를 눌러주세요')
 cv2.waitKey()
 onoff = 1
-
+ondisplay = 1
 # updater
 updater = Updater(token=master_token, use_context=True)
 dispatcher = updater.dispatcher
