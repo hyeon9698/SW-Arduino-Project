@@ -56,7 +56,7 @@ void loop() {
   duration2 = pulseIn (ECHO2, HIGH); 
   distance2 = duration2 * 17 / 1000; 
    if (val==HIGH){
-     if (distance<20||distance2<20){
+     if (distance<60||distance2<60){
         digitalWrite(playe,HIGH); 
         delay(10);
         digitalWrite(playe,LOW);
@@ -82,7 +82,7 @@ void loop() {
   duration2 = pulseIn (ECHO2, HIGH); 
   distance2 = duration2 * 17 / 1000; 
    if (val==HIGH){
-     if (distance<20||distance2<20){
+     if (distance<60||distance2<60){
         digitalWrite(playe,HIGH); 
         delay(10);
         digitalWrite(playe,LOW);
