@@ -54,7 +54,7 @@ void loop() {
   duration2 = pulseIn (ECHO2, HIGH); 
   distance2 = duration2 * 17 / 1000; 
   serialData.Get(valsRec);
-  if (valsRec[0]==0&&valsRec[1]==0){
+
    if (val==HIGH){
      if (distance<20||distance2<20){
         digitalWrite(playe,HIGH); 
@@ -62,8 +62,7 @@ void loop() {
         digitalWrite(playe,LOW);
      }
     }
-  }
-    while (valsRec[0] != 0&&valsRec[1] != 0){
+  
       serialData.Get(valsRec);
     if (valsRec[0]>340){//x축
       x-=2;
@@ -93,6 +92,6 @@ void loop() {
     servo2.write(y);
     delay(100);
    serialData.Get(valsRec);
-  }
+  
   
 }
