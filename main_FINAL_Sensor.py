@@ -41,15 +41,14 @@ age_net = cv2.dnn.readNetFromCaffe(
     'models/age_net.caffemodel')
 age_list_final = ['(0, 6)','(8, 20)','(23, 100)']
 cv2.imshow('window', img0)
-x = input('준비가 완료 되었습니다. 엔터를 눌러주세요')
-cv2.waitKey()
 onoff = 1
 ondisplay = 1
 # updater
 updater = Updater(token=master_token, use_context=True)
 dispatcher = updater.dispatcher
 updater.start_polling()
-
+x = input('준비가 완료 되었습니다. 엔터를 눌러주세요')
+cv2.waitKey()
 while True:
     if ser.readable():
         val = ser.readline()
