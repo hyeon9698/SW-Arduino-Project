@@ -117,6 +117,8 @@ void loop() {
     servo2.write(y);
     delay(100);
    serialData.Get(valsRec);
+   valsRec[0] = 0;
+   valsRec[1] = 1;
   }
   
 }

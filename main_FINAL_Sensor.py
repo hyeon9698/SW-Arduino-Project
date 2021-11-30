@@ -67,7 +67,7 @@ while True:
                     stop_signal = 1
                     master_bot.send_message(chat_id=master_mc, text="stopping camera") # 답장 보내기
                 if user_text == "help":
-                    master_bot.send_message(chat_id=master_mc, text="stopcam 을 입력하면 카메라 종료\nstopsensor 를 입력하면 sensor 종료 ") # 답장 보내기
+                    master_bot.send_message(chat_id=master_mc, text="stop 을 입력하면 카메라 종료\nstop 를 입력하면 sensor 종료 ") # 답장 보내기
             
             echo_handler = MessageHandler(Filters.text, handler)
             dispatcher.add_handler(echo_handler)
@@ -421,7 +421,7 @@ while True:
                     stop_signal = 1
                     master_bot.send_message(chat_id=master_mc, text="stopping sensor") # 답장 보내기
                 if user_text == "help":
-                    master_bot.send_message(chat_id=master_mc, text="stopcam 을 입력하면 카메라 종료\nstopsensor 를 입력하면 sensor 종료 ") # 답장 보내기
+                    master_bot.send_message(chat_id=master_mc, text="stop 을 입력하면 카메라 종료\nstop 를 입력하면 sensor 종료 ") # 답장 보내기
             echo_handler = MessageHandler(Filters.text, handler)
             dispatcher.add_handler(echo_handler)
             cv2.namedWindow("window", cv2.WND_PROP_FULLSCREEN)
