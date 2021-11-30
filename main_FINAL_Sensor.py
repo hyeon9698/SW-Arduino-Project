@@ -436,6 +436,7 @@ while True:
                     break
                 if ser.readable():
                     val = ser.readline()
+                    arduino.sendData([0, 0])
                     print(val.decode()[:len(val)-2])
                     if val.decode()[:len(val)-2] == '9':
                         break
