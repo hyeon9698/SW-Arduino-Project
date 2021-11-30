@@ -39,7 +39,7 @@ arduino = SerialObject('COM6')
 age_net = cv2.dnn.readNetFromCaffe(
     'models/deploy_age.prototxt', 
     'models/age_net.caffemodel')
-age_list_final = ['(0, 6)','(8, 20)','(25, 100)']
+age_list_final = ['(0, 6)','(8, 20)','(23, 100)']
 cv2.imshow('window', img0)
 cv2.waitKey()
 onoff = 1
