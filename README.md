@@ -6,7 +6,7 @@
 
 `main_bluetooth.ino` - 주변 환경 + 블루투스 아두이노 코드
 #### [노션 페이지](https://sw7jo.notion.site/SW-7-b232c8cdc2f6445194288738b2f3aade) - 정리해 두었습니다.
-- 메인 이미지 , [시연영상](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/10cbe424-2fdc-4b0c-a311-c18fc5fc0e8c/20211130_204906.mp4)
+- 메인 이미지 , [시연영상](https://drive.google.com/file/d/147cBnowGJt-ziispYB5Ymt-dZmLH8VAB/view?usp=sharing)
 
 ![image](https://user-images.githubusercontent.com/41141851/146865548-707a2751-b59c-4412-a2bc-3246dd3f5eca.png)
 - 설계도
