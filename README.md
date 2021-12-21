@@ -1,9 +1,7 @@
-# SW-Arduino-Project
-SW-Arduino-Project
-# 스마트 광고 봇
+# 스마트 광고 봇 (창의SW기초설계)
 #### 앞에 보는 사람에 따라, 주변 환경에 따라 자동으로 광고를 출력하는 봇 입니다.
 `main.py` - 메인 코드
-
+ 
 `main_arduino_face_left_right_basic_final.ino` - 얼굴 추적 아두이노 코드
 
 `main_bluetooth.ino` - 주변 환경 + 블루투스 아두이노 코드
